@@ -22,8 +22,12 @@ module GearedPagination
       end
     end
 
+    def page_param(scope)
+      param_for page_number, scope
+    end
+
     def next_param(scope)
-      Cursor.encode page_number: page_number + 1, values: from(scope).last&.slice(*attributes) || {}
+      param_for page_number + 1, scope
     end
 
 
@@ -132,6 +136,10 @@ module GearedPagination
             table[attribute].lt(value)
           end
         end
+      end
+
+      def param_for(page_number, scope)
+        Cursor.encode page_number: page_number, values: from(scope).last&.slice(*attributes) || {}
       end
   end
 end
