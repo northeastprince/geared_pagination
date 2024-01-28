@@ -23,6 +23,10 @@ module GearedPagination
       variable + fixed
     end
 
+    def page_param(*)
+      page_number
+    end
+
     def next_param(*)
       page_number + 1
     end
